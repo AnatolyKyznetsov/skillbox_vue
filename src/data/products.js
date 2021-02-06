@@ -5,6 +5,7 @@ export default [
     title: 'Смартфон OPPO Reno4 Lite 8+128GB Magic Blue',
     price: 24990,
     img: '/img/phone.jpg',
+    colors: ['#FFBE15', '#939393', '#8BE000', '#000000'],
   },
   {
     id: 2,
@@ -12,6 +13,7 @@ export default [
     title: 'Смарт-часы Samsung Galaxy Watch Active2',
     price: 24990,
     img: '/img/watch.jpg',
+    colors: ['#73B6EA', '#FFBE15', '#939393', '#8BE000'],
   },
   {
     id: 3,
@@ -19,6 +21,7 @@ export default [
     title: 'Электробритва Philips',
     price: 5990,
     img: '/img/shaver.jpg',
+    colors: ['#FF6B00', '#E3E3E3', '#000000'],
   },
   {
     id: 4,
@@ -26,6 +29,7 @@ export default [
     title: 'Электрическая зубная щетка Braun ORAL-B',
     price: 2490,
     img: '/img/toothbrush.jpg',
+    colors: ['#73B6EA', '#FFBE15', '#939393'],
   },
   {
     id: 5,
@@ -33,6 +37,7 @@ export default [
     title: 'Машинка для стрижки волос Philips',
     price: 4590,
     img: '/img/clipper.jpg',
+    colors: ['#73B6EA', '#939393', '#000000'],
   },
   {
     id: 6,
@@ -40,6 +45,7 @@ export default [
     title: 'Эпилятор Rowenta',
     price: 4990,
     img: '/img/epilator.jpg',
+    colors: ['#939393', '#8BE000', '#E3E3E3'],
   },
   {
     id: 7,
@@ -47,6 +53,7 @@ export default [
     title: 'Пылесос ручной Tefal',
     price: 11990,
     img: '/img/vacuum_cleaner.jpg',
+    colors: ['#8BE000', '#E3E3E3'],
   },
   {
     id: 8,
@@ -54,6 +61,7 @@ export default [
     title: 'Утюг Redmond',
     price: 3990,
     img: '/img/iron.jpg',
+    colors: ['#E3E3E3'],
   },
   {
     id: 9,
@@ -61,6 +69,7 @@ export default [
     title: 'Наушники True Wireless Samsung',
     price: 17990,
     img: '/img/headphones.jpg',
+    colors: ['#E3E3E3', '#000000'],
   },
   {
     id: 10,
@@ -68,6 +77,7 @@ export default [
     title: 'Умная колонка JBL',
     price: 8790,
     img: '/img/speaker.jpg',
+    colors: ['#939393', '#8BE000', '#FF6B00'],
   },
   {
     id: 11,
@@ -75,6 +85,7 @@ export default [
     title: 'Кофемашина капсульного',
     price: 7990,
     img: '/img/coffee_maker.jpg',
+    colors: ['#939393', '#8BE000', '#FF6B00', '#000000'],
   },
   {
     id: 12,
@@ -82,5 +93,6 @@ export default [
     title: 'Радиатор Electrolux',
     price: 5790,
     img: '/img/radiator.jpg',
+    colors: ['#73B6EA', '#FFBE15'],
   },
 ];
