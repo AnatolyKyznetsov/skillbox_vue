@@ -14,22 +14,37 @@
       {{ product.price }} ₽
     </span>
 
-    <ul class="colors colors--black">
-      <li class="colors__item" v-for="(color, index) in product.colors" :key="color">
-        <label class="colors__label">
-          <input class="colors__radio sr-only" type="radio" :value="color" :name="'product_' + product.id" :checked="index === 0 ? true : false">
-          <span class="colors__value" :style="'background-color:' + color">
-          </span>
-        </label>
-      </li>
-    </ul>
+    <!-- Выбор цветов -->
+    <ColorsList :colors="colors" borderColor="black" :elementName="'product_' + product.id" :current-color="firstColor" />
   </li>
 </template>
 
 <script>
+import colors from '../data/colors';
+import ColorsList from './ColorsList.vue';
+
 export default {
+  components: {
+    ColorsList,
+  },
   props: {
     product: Object,
+  },
+  computed: {
+    colors() {
+      const productColors = [];
+
+      colors.forEach((color) => {
+        if (this.product.colorsId.some((id) => id === color.id)) {
+          productColors.push(color);
+        }
+      });
+
+      return productColors;
+    },
+    firstColor() {
+      return this.colors[0].id;
+    },
   },
 };
 </script>

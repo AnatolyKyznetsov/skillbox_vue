@@ -11,7 +11,7 @@
 
     <div class="content__catalog">
       <!-- Фильтры -->
-      <ProductFilter :price-from.sync="filterPriceFrom" :price-to.sync="filterPriceTo" :category-id.sync="filterCategoryId" :product-color.sync="filterColor" :products-colors="productsColors" />
+      <ProductFilter :price-from.sync="filterPriceFrom" :price-to.sync="filterPriceTo" :category-id.sync="filterCategoryId" :product-color.sync="filterColorId" />
       <section class="catalog">
         <!-- Список товаров -->
         <ProductList :products="products" />
@@ -40,7 +40,7 @@ export default {
       filterPriceFrom: 0,
       filterPriceTo: 0,
       filterCategoryId: 0,
-      filterColor: '',
+      filterColorId: 0,
       page: 1,
       productsPerPage: 3,
     };
@@ -61,8 +61,8 @@ export default {
         filteredProducts = filteredProducts.filter((product) => product.categryId === this.filterCategoryId);
       }
 
-      if (this.filterColor) {
-        filteredProducts = filteredProducts.filter((product) => product.colors.some((color) => color === this.filterColor));
+      if (this.filterColorId) {
+        filteredProducts = filteredProducts.filter((product) => product.colorsId.some((id) => id === this.filterColorId));
       }
 
       return filteredProducts;
@@ -73,17 +73,6 @@ export default {
     },
     countProducts() {
       return this.filteredProducts.length;
-    },
-    productsColors() {
-      const colors = [];
-
-      this.filteredProducts.forEach((product) => {
-        product.colors.forEach((color) => {
-          colors.push(color);
-        });
-      });
-
-      return colors.filter((item, index) => colors.indexOf(item) === index);
     },
   },
 };

@@ -27,15 +27,8 @@
 
       <fieldset class="form__block">
         <legend class="form__legend">Цвет</legend>
-        <ul class="colors">
-          <li class="colors__item" v-for="color in productsColors" :key="color">
-            <label class="colors__label">
-              <input class="colors__radio sr-only" type="radio" name="color" :value="color" v-model="currentColor">
-              <span class="colors__value" :style="'background-color:' + color">
-              </span>
-            </label>
-          </li>
-        </ul>
+        <!-- Выбор цветов -->
+        <ColorsList :colors="colors" elementName="filters" :current-color.sync="currentColorId" />
       </fieldset>
 
       <fieldset class="form__block">
@@ -110,21 +103,25 @@
 
 <script>
 import categories from '../data/catigories';
+import colors from '../data/colors';
+import ColorsList from './ColorsList.vue';
 
 export default {
+  components: {
+    ColorsList,
+  },
   data() {
     return {
       currentPriceFrom: 0,
       currentPriceTo: 0,
       currentCategoryId: 0,
-      currentColor: '',
+      currentColorId: 0,
     };
   },
   props: {
     priceFrom: Number,
     priceTo: Number,
     categoryId: Number,
-    productColor: String,
     productsColors: Array,
   },
   watch: {
@@ -138,7 +135,7 @@ export default {
       this.currentCategoryId = value;
     },
     productColor(value) {
-      this.currentColor = value;
+      this.currentColorId = value;
     },
   },
   methods: {
@@ -146,7 +143,7 @@ export default {
       this.$emit('update:priceFrom', this.currentPriceFrom);
       this.$emit('update:priceTo', this.currentPriceTo);
       this.$emit('update:categoryId', this.currentCategoryId);
-      this.$emit('update:productColor', this.currentColor);
+      this.$emit('update:productColor', this.currentColorId);
     },
     reset() {
       this.$emit('update:priceFrom', 0);
@@ -156,16 +153,11 @@ export default {
     },
   },
   computed: {
-    // currentPriceFrom: {
-    //   get() {
-    //     return this.priceFrom;
-    //   },
-    //   set(value) {
-    //     this.$emit('update:priceFrom', value);
-    //   },
-    // },
     categories() {
       return categories;
+    },
+    colors() {
+      return colors;
     },
   },
 };
