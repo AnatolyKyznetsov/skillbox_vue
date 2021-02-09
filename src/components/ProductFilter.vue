@@ -102,9 +102,9 @@
 </template>
 
 <script>
-import categories from '../data/catigories';
-import colors from '../data/colors';
-import ColorsList from './ColorsList.vue';
+import categories from '@/data/catigories';
+import colors from '@/data/colors';
+import ColorsList from '@/components/ColorsList.vue';
 
 export default {
   components: {
