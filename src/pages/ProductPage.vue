@@ -3,14 +3,14 @@
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
-          <a class="breadcrumbs__link" href="#" @click.prevent="goToPage('main')">
+          <router-link class="breadcrumbs__link" :to="{name: 'main'}">
             Каталог
-          </a>
+          </router-link>
         </li>
         <li class="breadcrumbs__item">
-          <a class="breadcrumbs__link" href="#" @click.prevent="goToPage('main')">
+          <router-link class="breadcrumbs__link" :to="{name: 'main'}">
            {{ category.title }}
-          </a>
+          </router-link>
         </li>
         <li class="breadcrumbs__item">
           <a class="breadcrumbs__link">
@@ -158,18 +158,11 @@ import products from '@/data/products';
 import categories from '@/data/catigories';
 import colors from '@/data/colors';
 import ColorsList from '@/components/ColorsList.vue';
-import goToPage from '@/helpers/goToPage';
 import numberFormat from '@/helpers/numberFormat';
 
 export default {
-  props: {
-    pageParams: Object,
-  },
   components: {
     ColorsList,
-  },
-  methods: {
-    goToPage,
   },
   filters: {
     numberFormat,
@@ -190,7 +183,7 @@ export default {
       return this.colors[0].id;
     },
     product() {
-      return products.find((product) => product.id === this.pageParams.id);
+      return products.find((product) => product.id === +this.$route.params.id);
     },
     category() {
       return categories.find((category) => category.id === this.product.categryId);
