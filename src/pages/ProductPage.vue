@@ -33,7 +33,7 @@
           {{ product.title }}
         </h2>
         <div class="item__form">
-          <form class="form" action="#" method="POST">
+          <form class="form" action="#" @submit.prevent="addToCart">
             <b class="item__price">
               {{ product.price | numberFormat}} ₽
             </b>
@@ -76,21 +76,8 @@
             </fieldset>
 
             <div class="item__row">
-              <div class="form__counter">
-                <button type="button" aria-label="Убрать один товар">
-                  <svg width="12" height="12" fill="currentColor">
-                    <use xlink:href="#icon-minus"></use>
-                  </svg>
-                </button>
 
-                <input type="text" value="1" name="count">
-
-                <button type="button" aria-label="Добавить один товар">
-                  <svg width="12" height="12" fill="currentColor">
-                    <use xlink:href="#icon-plus"></use>
-                  </svg>
-                </button>
-              </div>
+              <ProductCounter v-model.number="productAmount" />
 
               <button class="button button--primery" type="submit">
                 В корзину
@@ -158,14 +145,28 @@ import products from '@/data/products';
 import categories from '@/data/catigories';
 import colors from '@/data/colors';
 import ColorsList from '@/components/ColorsList.vue';
+import ProductCounter from '@/components/ProductCounter.vue';
 import numberFormat from '@/helpers/numberFormat';
 
 export default {
   components: {
     ColorsList,
+    ProductCounter,
+  },
+  data() {
+    return {
+      productAmount: 1,
+    };
   },
   filters: {
     numberFormat,
+  },
+  methods: {
+    addToCart() {
+      if (this.productAmount > 0 && Number.isInteger(this.productAmount)) {
+        this.$store.commit('addProductToCart', { productId: this.product.id, amount: this.productAmount });
+      }
+    },
   },
   computed: {
     colors() {
