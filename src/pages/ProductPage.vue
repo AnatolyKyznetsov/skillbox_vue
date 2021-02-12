@@ -190,5 +190,12 @@ export default {
       return categories.find((category) => category.id === this.product.categryId);
     },
   },
+  watch: {
+    '$route.params.id'() {
+      if (!this.product) {
+        this.$router.replace({ name: 'notFound' });
+      }
+    },
+  },
 };
 </script>

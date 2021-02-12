@@ -1,8 +1,8 @@
 <template>
   <li class="cart__item product">
-    <div class="product__pic">
+    <router-link class="product__pic" :to="{name: 'product', params: {id: item.product.id}}">
       <img :src="item.product.img" width="120" height="120" :alt="item.product.title">
-    </div>
+    </router-link>
     <h3 class="product__title">
       {{ item.product.title }}
     </h3>
@@ -11,7 +11,7 @@
       Артикул: {{ item.productId }}
     </span>
 
-    <ProductCounter v-model.number="amount" classes="product__counter" />
+    <ProductCounter v-model.number="amount" class="product__counter" />
 
     <b class="product__price">
       {{ (item.product.price * item.amount) | numberFormat }} ₽
