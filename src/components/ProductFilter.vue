@@ -102,8 +102,7 @@
 </template>
 
 <script>
-import categories from '@/data/catigories';
-import colors from '@/data/colors';
+import axios from 'axios';
 import ColorsList from '@/components/ColorsList.vue';
 
 export default {
@@ -116,13 +115,16 @@ export default {
       currentPriceTo: 0,
       currentCategoryId: 0,
       currentColorId: 0,
+
+      colorsData: null,
+      categoriesData: null,
     };
   },
   props: {
     priceFrom: Number,
     priceTo: Number,
     categoryId: Number,
-    productsColors: Array,
+    productColor: Number,
   },
   watch: {
     priceFrom(value) {
@@ -149,16 +151,28 @@ export default {
       this.$emit('update:priceFrom', 0);
       this.$emit('update:priceTo', 0);
       this.$emit('update:categoryId', 0);
-      this.$emit('update:productColor', '');
+      this.$emit('update:productColor', 0);
+    },
+    loadColors() {
+      axios.get('https://vue-study.skillbox.cc/api/colors')
+        .then((response) => { this.colorsData = response.data; });
+    },
+    loadCategories() {
+      axios.get('https://vue-study.skillbox.cc/api/productCategories')
+        .then((response) => { this.categoriesData = response.data; });
     },
   },
   computed: {
     categories() {
-      return categories;
+      return this.categoriesData ? this.categoriesData.items : [];
     },
     colors() {
-      return colors;
+      return this.colorsData ? this.colorsData.items : [];
     },
+  },
+  created() {
+    this.loadColors();
+    this.loadCategories();
   },
 };
 </script>

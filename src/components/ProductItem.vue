@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import colors from '@/data/colors';
+import axios from 'axios';
 import ColorsList from '@/components/ColorsList.vue';
 import numberFormat from '@/helpers/numberFormat';
 
@@ -28,27 +28,47 @@ export default {
   components: {
     ColorsList,
   },
+  data() {
+    return {
+      colorsData: null,
+    };
+  },
   props: {
     product: Object,
   },
   filters: {
     numberFormat,
   },
+  methods: {
+    loadColors() {
+      axios.get('https://vue-study.skillbox.cc/api/colors')
+        .then((response) => { this.colorsData = response.data; });
+    },
+  },
   computed: {
     colors() {
       const productColors = [];
 
-      colors.forEach((color) => {
-        if (this.product.colorsId.some((id) => id === color.id)) {
-          productColors.push(color);
-        }
+      if (!this.colorsData) {
+        return [];
+      }
+
+      this.colorsData.items.forEach((color) => {
+        this.product.colors.forEach((item) => {
+          if (item.id === color.id) {
+            productColors.push(color);
+          }
+        });
       });
 
       return productColors;
     },
     firstColor() {
-      return this.colors[0].id;
+      return this.colors[0] ? this.colors[0].id : 0;
     },
+  },
+  created() {
+    this.loadColors();
   },
 };
 </script>
