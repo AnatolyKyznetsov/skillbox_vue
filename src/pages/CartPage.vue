@@ -1,5 +1,6 @@
 <template>
-  <main class="content container">
+  <AppPreloader v-if="loadingCart" class="full-screen-height" />
+  <main class="content container" v-else>
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
@@ -23,7 +24,7 @@
     </div>
 
     <section class="cart">
-      <form class="cart__form form" action="#" method="POST">
+      <form class="cart__form form" action="#" @submit.prevent>
         <div class="cart__field">
           <ul class="cart__list">
             <!-- Товар в корзине -->
@@ -51,17 +52,32 @@
 <script>
 import CartItem from '@/components/CartItem.vue';
 import numberFormat from '@/helpers/numberFormat';
+import AppPreloader from '@/components/AppPreloader.vue';
 import { mapGetters } from 'vuex';
 
 export default {
+  data() {
+    return {
+      loadingCart: false,
+    };
+  },
   components: {
     CartItem,
+    AppPreloader,
   },
   filters: {
     numberFormat,
   },
   computed: {
     ...mapGetters({ products: 'cartDetailsProducts', totlalPrice: 'cartTotalPrice' }),
+  },
+  watch: {
+    '$store.state.loadingCart': {
+      handler() {
+        this.loadingCart = this.$store.state.loadingCart;
+      },
+      immediate: true,
+    },
   },
 };
 </script>

@@ -103,6 +103,7 @@
 
 <script>
 import axios from 'axios';
+import { API_BASE_URL } from '@/config';
 import ColorsList from '@/components/ColorsList.vue';
 
 export default {
@@ -154,11 +155,11 @@ export default {
       this.$emit('update:productColor', 0);
     },
     loadColors() {
-      axios.get('https://vue-study.skillbox.cc/api/colors')
+      axios.get(API_BASE_URL + '/api/colors')
         .then((response) => { this.colorsData = response.data; });
     },
     loadCategories() {
-      axios.get('https://vue-study.skillbox.cc/api/productCategories')
+      axios.get(API_BASE_URL + '/api/productCategories')
         .then((response) => { this.categoriesData = response.data; });
     },
   },

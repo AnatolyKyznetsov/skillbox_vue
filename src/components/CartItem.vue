@@ -28,7 +28,7 @@
 <script>
 import ProductCounter from '@/components/ProductCounter.vue';
 import numberFormat from '@/helpers/numberFormat';
-import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   props: {
@@ -45,17 +45,13 @@ export default {
       get() {
         return this.item.amount;
       },
-      set(v) {
-        let value = v;
-        if (value <= 0 && !Number.isInteger(value)) {
-          value = 0;
-        }
-        this.$store.commit('updateCartProductAmount', { productId: this.item.productId, amount: value });
+      set(value) {
+        this.$store.dispatch('updateCartProductAmount', { productId: this.item.productId, amount: value });
       },
     },
   },
   methods: {
-    ...mapMutations({ deleteProduct: 'deleteCartProduct' }),
+    ...mapActions({ deleteProduct: 'deleteCartProduct' }),
   },
 };
 </script>

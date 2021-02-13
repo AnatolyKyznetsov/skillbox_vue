@@ -1,5 +1,9 @@
 <template>
-  <main class="content container">
+  <!-- Прелоадер -->
+  <AppPreloader v-if="productLoading" class="full-screen-height" />
+  <!-- Ошибка при загрузке -->
+  <ProductsLoadingFalled v-else-if="productLoadingFaled" btn-title="Назад" :action="goBack" class="full-screen-height" />
+  <main class="content container" v-else>
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
@@ -79,10 +83,12 @@
 
               <ProductCounter v-model.number="productAmount" />
 
-              <button class="button button--primery" type="submit">
+              <button class="button button--primery" type="submit" :disabled="productAddSending">
                 В корзину
               </button>
             </div>
+            <AppPreloader v-if="productAddSending" class="loader--small small-top-indent" />
+            <div class="small-top-indent" v-show="productAdded">Товар добавлен в корзину</div>
           </form>
         </div>
       </div>
@@ -141,61 +147,103 @@
 </template>
 
 <script>
-import products from '@/data/products';
-import categories from '@/data/catigories';
-import colors from '@/data/colors';
+import axios from 'axios';
+import { API_BASE_URL } from '@/config';
 import ColorsList from '@/components/ColorsList.vue';
 import ProductCounter from '@/components/ProductCounter.vue';
 import numberFormat from '@/helpers/numberFormat';
+import ProductsLoadingFalled from '@/components/ProductsLoadingFalled.vue';
+import AppPreloader from '@/components/AppPreloader.vue';
+import { mapActions, mapMutations } from 'vuex';
 
 export default {
   components: {
     ColorsList,
     ProductCounter,
+    AppPreloader,
+    ProductsLoadingFalled,
   },
   data() {
     return {
       productAmount: 1,
+      productData: null,
+
+      productLoading: false,
+      productLoadingFaled: false,
+
+      productAdded: false,
+      productAddSending: false,
     };
   },
   filters: {
     numberFormat,
   },
   methods: {
+    ...mapActions(['addProductToCart']),
+    ...mapMutations(['productAddSendingStatus']),
+
     addToCart() {
       if (this.productAmount > 0 && Number.isInteger(this.productAmount)) {
-        this.$store.commit('addProductToCart', { productId: this.product.id, amount: this.productAmount });
+        this.productAdded = false;
+        this.productAddSending = true;
+
+        this.addProductToCart({ productId: this.product.id, amount: this.productAmount })
+          .then(() => {
+            this.productAdded = true;
+            this.productAddSending = false;
+          });
       }
+    },
+    loadProduct() {
+      this.productLoading = true;
+      this.productLoadingFaled = false;
+      setTimeout(() => {
+        axios.get(API_BASE_URL + '/api/products/' + this.$route.params.id)
+          .then((response) => {
+            this.productData = response.data;
+            this.productData.img = this.productData.image.file.url;
+          })
+          .catch(() => { this.productLoadingFaled = true; })
+          .then(() => { this.productLoading = false; });
+      }, 1000);
+    },
+    goBack() {
+      this.$router.go(-1);
     },
   },
   computed: {
     colors() {
-      const productColors = [];
-
-      colors.forEach((color) => {
-        if (this.product.colorsId.some((id) => id === color.id)) {
-          productColors.push(color);
-        }
-      });
-
-      return productColors;
+      return this.productData.colors;
     },
     firstColor() {
       return this.colors[0].id;
     },
     product() {
-      return products.find((product) => product.id === +this.$route.params.id);
+      return this.productData;
     },
     category() {
-      return categories.find((category) => category.id === this.product.categryId);
+      return this.productData.category;
     },
   },
   watch: {
-    '$route.params.id'() {
-      if (!this.product) {
-        this.$router.replace({ name: 'notFound' });
-      }
+    '$route.params.id': {
+      handler() {
+        this.loadProduct();
+      },
+      immediate: true,
+    },
+    productAddSending() {
+      this.productAddSendingStatus(this.productAddSending);
     },
   },
 };
 </script>
+
+<style lang="stylus">
+.small-top-indent
+  margin-top 15px
+
+.full-screen-height
+  min-height 100vh
+
+</style>
