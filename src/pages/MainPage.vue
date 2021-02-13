@@ -24,7 +24,7 @@
         <!-- Список товаров -->
         <ProductList v-else :products="products" />
         <!-- Пагинация -->
-        <BasePagination v-model="page" :count="countProducts" :per-page="productsPerPage" />
+        <AppPagination v-model="page" :count="countProducts" :per-page="productsPerPage" />
       </section>
     </div>
   </main>
@@ -33,16 +33,16 @@
 <script>
 import axios from 'axios';
 import { API_BASE_URL } from '@/config';
-import AppPreloader from '@/components/AppPreloader.vue';
-import ProductsLoadingFalled from '@/components/ProductsLoadingFalled.vue';
-import ProductList from '@/components/ProductList.vue';
-import BasePagination from '@/components/BasePagination.vue';
-import ProductFilter from '@/components/ProductFilter.vue';
+import AppPreloader from '@/components/common/AppPreloader.vue';
+import ProductsLoadingFalled from '@/components/product/ProductsLoadingFalled.vue';
+import ProductList from '@/components/product/ProductList.vue';
+import AppPagination from '@/components/common/AppPagination.vue';
+import ProductFilter from '@/components/product/ProductFilter.vue';
 
 export default {
   components: {
     ProductList,
-    BasePagination,
+    AppPagination,
     ProductFilter,
     AppPreloader,
     ProductsLoadingFalled,

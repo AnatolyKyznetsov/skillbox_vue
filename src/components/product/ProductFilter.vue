@@ -104,7 +104,7 @@
 <script>
 import axios from 'axios';
 import { API_BASE_URL } from '@/config';
-import ColorsList from '@/components/ColorsList.vue';
+import ColorsList from '@/components/colors/ColorsList.vue';
 
 export default {
   components: {

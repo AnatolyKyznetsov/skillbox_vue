@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import CartIndicator from '@/components/CartIndicator.vue';
-import AppPreloader from '@/components/AppPreloader.vue';
+import CartIndicator from '@/components/cart/CartIndicator.vue';
+import AppPreloader from '@/components/common/AppPreloader.vue';
 
 export default {
   components: {

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import ColorsList from '@/components/ColorsList.vue';
+import ColorsList from '@/components/colors/ColorsList.vue';
 import numberFormat from '@/helpers/numberFormat';
 
 export default {

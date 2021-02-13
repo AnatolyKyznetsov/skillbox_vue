@@ -1,22 +1,22 @@
 <template>
   <div>
-    <AppHeader />
+    <TheHeader />
     <router-view />
-    <AppFooter />
+    <TheFooter />
   </div>
 </template>
 
 <script>
-import AppHeader from '@/components/AppHeader.vue';
-import AppFooter from '@/components/AppFooter.vue';
+import TheHeader from '@/components/TheHeader.vue';
+import TheFooter from '@/components/TheFooter.vue';
 import { mapActions, mapMutations } from 'vuex';
 import { getCookies } from '@/helpers/cookies';
 
 export default {
   name: 'App',
   components: {
-    AppHeader,
-    AppFooter,
+    TheHeader,
+    TheFooter,
   },
   created() {
     const userAccessKey = getCookies('userAccessKey');

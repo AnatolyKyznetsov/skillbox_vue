@@ -11,7 +11,7 @@
       Артикул: {{ item.productId }}
     </span>
 
-    <ProductCounter v-model.number="amount" class="product__counter" />
+    <AppCounter v-model.number="amount" class="product__counter" />
 
     <b class="product__price">
       {{ (item.product.price * item.amount) | numberFormat }} ₽
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import ProductCounter from '@/components/ProductCounter.vue';
+import AppCounter from '@/components/common/AppCounter.vue';
 import numberFormat from '@/helpers/numberFormat';
 import { mapActions } from 'vuex';
 
@@ -35,7 +35,7 @@ export default {
     item: Object,
   },
   components: {
-    ProductCounter,
+    AppCounter,
   },
   filters: {
     numberFormat,

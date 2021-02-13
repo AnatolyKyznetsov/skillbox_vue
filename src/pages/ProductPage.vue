@@ -81,7 +81,7 @@
 
             <div class="item__row">
 
-              <ProductCounter v-model.number="productAmount" />
+              <AppCounter v-model.number="productAmount" />
 
               <button class="button button--primery" type="submit" :disabled="productAddSending">
                 В корзину
@@ -149,17 +149,17 @@
 <script>
 import axios from 'axios';
 import { API_BASE_URL } from '@/config';
-import ColorsList from '@/components/ColorsList.vue';
-import ProductCounter from '@/components/ProductCounter.vue';
-import numberFormat from '@/helpers/numberFormat';
-import ProductsLoadingFalled from '@/components/ProductsLoadingFalled.vue';
-import AppPreloader from '@/components/AppPreloader.vue';
 import { mapActions, mapMutations } from 'vuex';
+import ColorsList from '@/components/colors/ColorsList.vue';
+import AppCounter from '@/components/common/AppCounter.vue';
+import ProductsLoadingFalled from '@/components/product/ProductsLoadingFalled.vue';
+import AppPreloader from '@/components/common/AppPreloader.vue';
+import numberFormat from '@/helpers/numberFormat';
 
 export default {
   components: {
     ColorsList,
-    ProductCounter,
+    AppCounter,
     AppPreloader,
     ProductsLoadingFalled,
   },

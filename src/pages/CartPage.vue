@@ -50,9 +50,9 @@
 </template>
 
 <script>
-import CartItem from '@/components/CartItem.vue';
+import CartItem from '@/components/cart/CartItem.vue';
 import numberFormat from '@/helpers/numberFormat';
-import AppPreloader from '@/components/AppPreloader.vue';
+import AppPreloader from '@/components/common/AppPreloader.vue';
 import { mapGetters } from 'vuex';
 
 export default {
