@@ -127,20 +127,6 @@ export default {
     categoryId: Number,
     productColor: Number,
   },
-  watch: {
-    priceFrom(value) {
-      this.currentPriceFrom = value;
-    },
-    priceTo(value) {
-      this.currentPriceTo = value;
-    },
-    categoryId(value) {
-      this.currentCategoryId = value;
-    },
-    productColor(value) {
-      this.currentColorId = value;
-    },
-  },
   methods: {
     submit() {
       this.$emit('update:priceFrom', this.currentPriceFrom);

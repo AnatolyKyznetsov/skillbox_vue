@@ -31,7 +31,7 @@
             Благодарим за&nbsp;выбор нашего магазина. На&nbsp;Вашу почту придет письмо с&nbsp;деталями заказа.
             Наши менеджеры свяжутся с&nbsp;Вами в&nbsp;течение часа для уточнения деталей доставки.
           </p>
-          <OrderDictionary :name="orderInfo.name" :address="orderInfo.address" :phone="orderInfo.phone" :email="orderInfo.email" payment="Картой при получении" :status="status" :loadOrderInfo="loadOrderInfo" />
+          <OrderDictionary :dictionary="dictionary" :loadOrderInfo="loadOrderInfo" />
         </div>
         <OrderList :products="products" :amount="products.length" :totalPrice="orderInfo.totalPrice" :loading="loadOrderInfo" />
       </form>
@@ -43,6 +43,7 @@
 import OrderDictionary from '@/components/order/OrderDictionary.vue';
 import OrderList from '@/components/order/OrderList.vue';
 import numberFormat from '@/helpers/numberFormat';
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -57,33 +58,43 @@ export default {
   filters: {
     numberFormat,
   },
-  created() {
-    if (this.$store.state.orderInfo && this.$store.state.orderInfo.id === this.$route.params.id) {
-      this.$store.commit('loadOrderInfoStatus', false);
-      return;
-    }
-
-    this.$store.dispatch('loadOrderInfo', this.$route.params.id);
-  },
   computed: {
+    ...mapGetters({ products: 'orderInfoBasket' }),
+
     orderInfo() {
       return this.$store.state.orderInfo ? this.$store.state.orderInfo : {};
     },
-    products() {
-      return this.orderInfo.basket ? this.orderInfo.basket.items.map((item) => ({
-        ...item,
-        productId: item.product.id,
-        amount: item.quantity,
-      })) : [];
-    },
     status() {
       return this.orderInfo.status ? this.orderInfo.status.title : '';
+    },
+    dictionary() {
+      return [
+        { key: 'Получатель', value: this.orderInfo.name, id: 1 },
+        { key: 'Адрес доставки', value: this.orderInfo.address, id: 2 },
+        { key: 'Телефон', value: this.orderInfo.phone, id: 3 },
+        { key: 'Email', value: this.orderInfo.email, id: 4 },
+        { key: 'Способ оплаты', value: 'Картой при получении', id: 5 },
+        { key: 'Статус заказа', value: this.status, id: 6 },
+      ];
     },
   },
   watch: {
     '$store.state.loadOrderInfo': {
       handler() {
         this.loadOrderInfo = this.$store.state.loadOrderInfo;
+      },
+      immediate: true,
+    },
+    '$route.params.id': {
+      handler() {
+        this.$store.commit('loadOrderInfoStatus', true);
+
+        if (this.$store.state.orderInfo && this.$store.state.orderInfo.id === this.$route.params.id) {
+          this.$store.commit('loadOrderInfoStatus', false);
+          return;
+        }
+
+        this.$store.dispatch('loadOrderInfo', this.$route.params.id);
       },
       immediate: true,
     },

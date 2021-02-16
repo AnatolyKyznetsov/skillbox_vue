@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import { API_BASE_URL } from '@/config';
 import { setCookies } from '@/helpers/cookies';
+import router from '@/router';
 
 Vue.use(Vuex);
 
@@ -70,6 +71,13 @@ export default new Vuex.Store({
         };
       });
     },
+    orderInfoBasket(state) {
+      return state.orderInfo ? state.orderInfo.basket.items.map((item) => ({
+        ...item,
+        productId: item.product.id,
+        amount: item.quantity,
+      })) : [];
+    },
     cartTotalPrice(state, getters) {
       return getters.cartDetailsProducts.reduce((acc, item) => (item.product.price * item.amount) + acc, 0);
     },
@@ -86,7 +94,8 @@ export default new Vuex.Store({
             .then((response) => {
               context.commit('updateOrderInfo', response.data);
               context.commit('loadOrderInfoStatus', false);
-            });
+            })
+            .catch(() => router.replace({ name: 'notFound' }));
         });
     },
     loadCart(context) {
@@ -158,8 +167,7 @@ export default new Vuex.Store({
         .then((response) => {
           context.commit('updateCartProductsData', response.data.items);
           context.commit('syncCartProducts');
-        })
-        .catch((error) => console.log(error));
+        });
     },
   },
 });
