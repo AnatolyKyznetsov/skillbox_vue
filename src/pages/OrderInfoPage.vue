@@ -59,6 +59,7 @@ export default {
   },
   created() {
     if (this.$store.state.orderInfo && this.$store.state.orderInfo.id === this.$route.params.id) {
+      this.$store.commit('loadOrderInfoStatus', false);
       return;
     }
 
