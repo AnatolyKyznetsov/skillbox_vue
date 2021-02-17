@@ -71,6 +71,10 @@ export default {
   },
   computed: {
     ...mapGetters({ products: 'cartDetailsProducts', totlalPrice: 'cartTotalPrice' }),
+
+    loadingCartComputed() {
+      return this.$store.state.loadingCart;
+    },
   },
   watch: {
     '$store.state.loadingCart': {

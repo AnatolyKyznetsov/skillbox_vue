@@ -69,7 +69,10 @@ export default {
     ...mapGetters({ products: 'orderInfoBasket' }),
 
     orderInfo() {
-      return this.$store.state.orderInfo ? this.$store.state.orderInfo : {};
+      return this.$store.state.orderInfo || {};
+    },
+    loadOrderInfoComputed() {
+      return this.$store.state.loadOrderInfo;
     },
     status() {
       return this.orderInfo.status ? this.orderInfo.status.title : '';
@@ -88,7 +91,7 @@ export default {
   watch: {
     '$store.state.loadOrderInfo': {
       handler() {
-        this.loadOrderInfo = this.$store.state.loadOrderInfo;
+        this.loadOrderInfo = this.loadOrderInfoComputed;
       },
       immediate: true,
     },
@@ -96,7 +99,7 @@ export default {
       handler() {
         this.$store.commit('loadOrderInfoStatus', true);
 
-        if (this.$store.state.orderInfo && this.$store.state.orderInfo.id === this.$route.params.id) {
+        if (this.loadOrderInfoComputed && this.loadOrderInfoComputed.id === this.$route.params.id) {
           this.$store.commit('loadOrderInfoStatus', false);
           return;
         }
