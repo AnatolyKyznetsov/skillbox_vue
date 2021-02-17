@@ -1,6 +1,6 @@
 <template>
   <div class="loading-falled">
-    <img src="/img/loading_falled.jpg" alt="Произошла ошибка при загрузке товара" class="loading-falled__img">
+    <img :src="`${publicPath}/img/loading_falled.jpg`" alt="Произошла ошибка при загрузке товара" class="loading-falled__img">
     <h3 class="loading-falled__title"> Произошла ошибка при загрузке товара </h3>
     <button class="button button--primery loading-falled__button " @click="action" v-if="action">
       {{ btnTitle }}
@@ -13,6 +13,11 @@ export default {
   props: {
     action: Function,
     btnTitle: String,
+  },
+  data () {
+    return {
+      publicPath: process.env.BASE_URL,
+    };
   },
 };
 </script>
