@@ -16,8 +16,8 @@
         <!-- Ошибка загрузки товара -->
         <ProductsLoadingFalled v-if="productsLoadingFaled" :action="loadProducts" btn-title="Попробовать снова" />
         <!-- Нет товара с указанными параметрами -->
-        <div v-if="noSuchProducts">
-          Нет товаров с такими параметрами. <br> Попробуйте применить другой фильтр.
+        <div class="flex__center" v-if="noSuchProducts">
+          <h3>Нет товаров с такими параметрами. <br> Попробуйте применить другой фильтр.</h3>
         </div>
         <!-- Прелоадер -->
         <AppPreloader v-if="productsLoading" />
@@ -126,3 +126,12 @@ export default {
   },
 };
 </script>
+
+<style lang="stylus">
+.flex__center
+  height 100%
+  display flex
+  justify-content center
+  align-items center
+  text-align center
+</style>
