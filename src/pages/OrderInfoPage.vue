@@ -31,9 +31,16 @@
             Благодарим за&nbsp;выбор нашего магазина. На&nbsp;Вашу почту придет письмо с&nbsp;деталями заказа.
             Наши менеджеры свяжутся с&nbsp;Вами в&nbsp;течение часа для уточнения деталей доставки.
           </p>
+          <!-- Информация о заказе -->
           <OrderDictionary :dictionary="dictionary" :loadOrderInfo="loadOrderInfo" />
         </div>
-        <OrderList :products="products" :amount="products.length" :totalPrice="orderInfo.totalPrice" :loading="loadOrderInfo" />
+        <!-- Список товаров -->
+        <OrderList
+          :products="products"
+          :amount="products.length"
+          :totalPrice="orderInfo.totalPrice"
+          :loading="loadOrderInfo"
+        />
       </form>
     </section>
   </main>

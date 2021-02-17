@@ -11,10 +11,19 @@
 
     <div class="content__catalog">
       <!-- Фильтры -->
-      <ProductFilter :price-from.sync="filterPriceFrom" :price-to.sync="filterPriceTo" :category-id.sync="filterCategoryId" :product-color.sync="filterColorId" />
+      <ProductFilter
+        :price-from.sync="filterPriceFrom"
+        :price-to.sync="filterPriceTo"
+        :category-id.sync="filterCategoryId"
+        :product-color.sync="filterColorId"
+      />
       <section class="catalog">
         <!-- Ошибка загрузки товара -->
-        <ProductsLoadingFalled v-if="productsLoadingFaled" :action="loadProducts" btn-title="Попробовать снова" />
+        <ProductsLoadingFalled
+          v-if="productsLoadingFaled"
+          :action="loadProducts"
+          btn-title="Попробовать снова"
+        />
         <!-- Нет товара с указанными параметрами -->
         <div class="flex__center" v-if="noSuchProducts">
           <h3>Нет товаров с такими параметрами. <br> Попробуйте применить другой фильтр.</h3>
@@ -24,7 +33,11 @@
         <!-- Список товаров -->
         <ProductList v-else :products="products" />
         <!-- Пагинация -->
-        <AppPagination v-model="page" :count="countProducts" :per-page="productsPerPage" />
+        <AppPagination
+          v-model="page"
+          :count="countProducts"
+          :per-page="productsPerPage"
+        />
       </section>
     </div>
   </main>

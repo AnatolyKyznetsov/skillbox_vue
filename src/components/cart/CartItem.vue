@@ -10,7 +10,7 @@
     <span class="product__code">
       Артикул: {{ item.productId }}
     </span>
-
+    <!-- Счетчик -->
     <AppCounter v-model.number="amount" class="product__counter" />
 
     <b class="product__price">

@@ -28,7 +28,11 @@
       <fieldset class="form__block">
         <legend class="form__legend">Цвет</legend>
         <!-- Выбор цветов -->
-        <ColorsList :colors="colors" elementName="filters" :current-color.sync="currentColorId" />
+        <ColorsList
+          elementName="filters"
+          :colors="colors"
+          :current-color.sync="currentColorId"
+        />
       </fieldset>
 
       <fieldset class="form__block">

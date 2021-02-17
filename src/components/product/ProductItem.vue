@@ -15,7 +15,12 @@
     </span>
 
     <!-- Выбор цветов -->
-    <ColorsList class="colors--black" :colors="colors" :elementName="'product_' + product.id" :current-color="firstColor" />
+    <ColorsList
+      class="colors--black"
+      :colors="colors"
+      :elementName="'product_' + product.id"
+      :current-color="firstColor"
+    />
   </li>
 </template>
 

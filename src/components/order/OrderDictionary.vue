@@ -1,4 +1,5 @@
 <template>
+  <!-- Прелоадер -->
   <AppPreloader v-if="loadOrderInfo" />
   <ul class="dictionary" v-else>
     <li class="dictionary__item" v-for="item in dictionary" :key="item.id">

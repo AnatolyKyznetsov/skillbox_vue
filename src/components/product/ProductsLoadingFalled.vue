@@ -14,7 +14,7 @@ export default {
     action: Function,
     btnTitle: String,
   },
-  data () {
+  data() {
     return {
       publicPath: process.env.BASE_URL,
     };

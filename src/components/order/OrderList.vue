@@ -1,5 +1,6 @@
 <template>
   <div class="cart__block">
+    <!-- Прелоадер -->
     <AppPreloader v-if="loading" class="loader--small" style="margin-bottom: 40px"/>
     <ul class="cart__orders" v-else>
       <li class="cart__order" v-for="item in products" :key="item.productId">

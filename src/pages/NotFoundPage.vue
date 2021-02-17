@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       publicPath: process.env.BASE_URL,
     };

@@ -29,9 +29,11 @@
 
     <section class="cart">
       <form class="cart__form form" action="#" method="POST" @submit.prevent="order">
+        <!-- Прелоадер -->
         <AppPreloader v-if="formSending" />
         <div class="cart__field" v-else>
           <div class="cart__data">
+            <!-- Элементы формы -->
             <FormText title="ФИО" :error="formError.name" v-model="formData.name" placeholder="Введите ваше полное имя" />
             <FormText title="Адрес доставки" :error="formError.address" v-model="formData.address" placeholder="Введите ваш адрес" />
             <FormText title="Телефон" :error="formError.phone" v-model="formData.phone" placeholder="Введите ваш телефон" type="tel" />
@@ -81,7 +83,13 @@
             </ul>
           </div>
         </div>
-        <OrderList :products="products" :totalPrice="totalPrice" :amount="$store.state.cartProducts.length" :showButton="true" :loading="loadingCart" />
+        <!-- Список товаров -->
+        <OrderList
+          :products="products"
+          :totalPrice="totalPrice"
+          :amount="$store.state.cartProducts.length"
+          :showButton="true" :loading="loadingCart"
+        />
         <div class="cart__error form__error-block" v-if="formErrorMessage">
           <h4>Заявка не отправлена!</h4>
           <p>

@@ -2,7 +2,12 @@
   <!-- Прелоадер -->
   <AppPreloader v-if="productLoading" class="full-screen-height" />
   <!-- Ошибка при загрузке -->
-  <ProductsLoadingFalled v-else-if="productLoadingFaled" btn-title="Назад" :action="goBack" class="full-screen-height" />
+  <ProductsLoadingFalled
+    v-else-if="productLoadingFaled"
+    btn-title="Назад"
+    :action="goBack"
+    class="full-screen-height"
+  />
   <main class="content container" v-else>
     <div class="content__top">
       <ul class="breadcrumbs">
@@ -45,7 +50,11 @@
             <fieldset class="form__block">
               <legend class="form__legend">Цвет:</legend>
               <!-- Выбор цветов -->
-              <ColorsList :colors="colors" :elementName="'product_' + product.id" :current-color="firstColor" />
+              <ColorsList
+                :colors="colors"
+                :elementName="'product_' + product.id"
+                :current-color="firstColor"
+              />
             </fieldset>
 
             <fieldset class="form__block">
@@ -80,13 +89,13 @@
             </fieldset>
 
             <div class="item__row">
-
+              <!-- Счетчик -->
               <AppCounter v-model.number="productAmount" />
-
               <button class="button button--primery" type="submit" :disabled="productAddSending">
                 В корзину
               </button>
             </div>
+            <!-- Прелоадер -->
             <AppPreloader v-if="productAddSending" class="loader--small small-top-indent" />
             <div class="small-top-indent" v-show="productAdded">Товар добавлен в корзину</div>
           </form>

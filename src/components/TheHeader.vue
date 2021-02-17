@@ -10,6 +10,7 @@
       <a class="header__tel" href="tel:8 800 600 90 09">
         8 800 600 90 09
       </a>
+      <!-- Прелоадер -->
       <AppPreloader v-if="productAddSending || loadingCart" class="loader--small" />
       <!-- Ссылк на корзину с кол-вом товара -->
       <CartIndicator v-else />

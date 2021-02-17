@@ -1,4 +1,5 @@
 <template>
+  <!-- Прелоадер -->
   <AppPreloader v-if="loadingCart" class="full-screen-height" />
   <main class="content container" v-else>
     <div class="content__top">
